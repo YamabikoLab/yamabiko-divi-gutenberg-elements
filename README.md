@@ -2,7 +2,7 @@
 
 Yamabiko Divi Gutenberg Elements (YDGE) is a WordPress plugin project for editor elements and tools that can be offered through both Gutenberg and Divi 5.
 
-The project is currently in its foundation stage. Product features such as markers or caption boxes are not implemented yet. Shared behavior will be introduced only when a concrete feature establishes a real common responsibility, while Gutenberg and Divi integrations remain separate adapters.
+The project includes an experimental Highlight PoC for applying the same semantic `<mark>`-based highlight markup from Gutenberg and Divi 5. The Divi integration currently uses a provisional Visual Builder / TinyMCE adapter and is not yet a stable public feature.
 
 ## Development
 
@@ -11,6 +11,7 @@ Install Node.js dependencies and run the current front-end quality checks:
 ```bash
 npm ci
 npm test
+npm run build
 npm run audit:security
 ```
 
