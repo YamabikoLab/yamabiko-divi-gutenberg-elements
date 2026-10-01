@@ -8,7 +8,7 @@
 		"moduleResolution": "Bundler",
 		"noEmit": true,
 		"paths": {
-			"@/*": [ "src/*" ]
+			"@/*": [ "./src/*" ]
 		},
 		"skipLibCheck": true,
 		"strict": true,
