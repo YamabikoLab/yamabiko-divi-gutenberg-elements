@@ -23,7 +23,7 @@ Use these identifiers consistently:
 | Surface | Form |
 | --- | --- |
 | Plugin slug and text domain | `yamabiko-divi-gutenberg-elements` |
-| PHP namespace | `YamabikoLab\\DiviGutenbergElements\\` |
+| PHP namespace | `YamabikoLab\DiviGutenbergElements\` |
 | Global PHP function prefix | `yamabiko_divi_gutenberg_elements_` |
 | PHP constant prefix | `YAMABIKO_DIVI_GUTENBERG_ELEMENTS_` |
 | Action and filter prefix | `yamabiko-divi-gutenberg-elements/` |
