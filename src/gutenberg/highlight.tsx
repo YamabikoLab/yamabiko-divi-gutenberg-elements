@@ -55,8 +55,6 @@ declare global {
 }
 
 const FORMAT_NAME = 'yamabiko-divi-gutenberg-elements/highlight';
-const TEXT_DOMAIN = 'yamabiko-divi-gutenberg-elements';
-
 const { blockEditor, components, element, i18n, richText } = window.wp;
 const { RichTextToolbarButton } = blockEditor;
 const { Button, Dropdown, Flex } = components;
@@ -67,14 +65,14 @@ const { applyFormat, getActiveFormat, registerFormatType, removeFormat } = richT
 const getColorLabel = ( color: HighlightColor ): string => {
 	switch ( color ) {
 		case 'orange':
-			return __( 'Orange', TEXT_DOMAIN );
+			return __( 'Orange', 'yamabiko-divi-gutenberg-elements' );
 		case 'green':
-			return __( 'Green', TEXT_DOMAIN );
+			return __( 'Green', 'yamabiko-divi-gutenberg-elements' );
 		case 'blue':
-			return __( 'Blue', TEXT_DOMAIN );
+			return __( 'Blue', 'yamabiko-divi-gutenberg-elements' );
 		case 'yellow':
 		default:
-			return __( 'Yellow', TEXT_DOMAIN );
+			return __( 'Yellow', 'yamabiko-divi-gutenberg-elements' );
 	}
 };
 
@@ -108,7 +106,7 @@ const HighlightEdit = ( { isActive, value, onChange }: HighlightEditProps ): unk
 			createElement( RichTextToolbarButton, {
 				icon: 'edit',
 				isActive,
-				title: __( 'Highlight', TEXT_DOMAIN ),
+				title: __( 'Highlight', 'yamabiko-divi-gutenberg-elements' ),
 				onClick: onToggle,
 				'aria-expanded': isOpen,
 			} ),
@@ -144,14 +142,14 @@ const HighlightEdit = ( { isActive, value, onChange }: HighlightEditProps ): unk
 								onClose();
 							},
 						},
-						__( 'Remove highlight', TEXT_DOMAIN )
+						__( 'Remove highlight', 'yamabiko-divi-gutenberg-elements' )
 					)
 			),
 	} );
 };
 
 registerFormatType( FORMAT_NAME, {
-	title: __( 'Highlight', TEXT_DOMAIN ),
+	title: __( 'Highlight', 'yamabiko-divi-gutenberg-elements' ),
 	tagName: 'mark',
 	attributes: {
 		className: 'class',
