@@ -40,26 +40,25 @@ type DiviWindow = Window & {
 	};
 };
 
-const TEXT_DOMAIN = 'yamabiko-divi-gutenberg-elements';
 const CONTROL_ATTRIBUTE = 'data-yamabiko-divi-gutenberg-elements-highlight';
 const FORMAT_PREFIX = 'yamabiko_divi_gutenberg_elements_highlight_';
 const connectedEditors = new WeakSet< TinyMceEditor >();
 const bookmarks = new WeakMap< TinyMceEditor, TinyMceBookmark >();
 const diviWindow = window as DiviWindow;
 
-const translate = ( text: string ): string => diviWindow.wp?.i18n?.__( text, TEXT_DOMAIN ) ?? text;
-
 const getColorLabel = ( color: HighlightColor ): string => {
+	const __ = diviWindow.wp?.i18n?.__;
+
 	switch ( color ) {
 		case 'orange':
-			return translate( 'Orange' );
+			return __?.( 'Orange', 'yamabiko-divi-gutenberg-elements' ) ?? 'Orange';
 		case 'green':
-			return translate( 'Green' );
+			return __?.( 'Green', 'yamabiko-divi-gutenberg-elements' ) ?? 'Green';
 		case 'blue':
-			return translate( 'Blue' );
+			return __?.( 'Blue', 'yamabiko-divi-gutenberg-elements' ) ?? 'Blue';
 		case 'yellow':
 		default:
-			return translate( 'Yellow' );
+			return __?.( 'Yellow', 'yamabiko-divi-gutenberg-elements' ) ?? 'Yellow';
 	}
 };
 
@@ -140,7 +139,11 @@ const createMenu = ( editor: TinyMceEditor, anchor: HTMLElement ): HTMLDivElemen
 
 	const clear = document.createElement( 'button' );
 	clear.type = 'button';
-	clear.textContent = translate( 'Remove highlight' );
+	clear.textContent =
+		diviWindow.wp?.i18n?.__(
+			'Remove highlight',
+			'yamabiko-divi-gutenberg-elements'
+		) ?? 'Remove highlight';
 	clear.setAttribute( 'role', 'menuitem' );
 	clear.addEventListener( 'click', () => {
 		clearHighlight( editor );
@@ -162,7 +165,11 @@ const addToolbarControl = ( editor: TinyMceEditor ): void => {
 	}
 
 	const button = document.createElement( 'button' );
-	const label = translate( 'Highlight' );
+	const label =
+		diviWindow.wp?.i18n?.__(
+			'Highlight',
+			'yamabiko-divi-gutenberg-elements'
+		) ?? 'Highlight';
 
 	button.type = 'button';
 	button.textContent = label;
