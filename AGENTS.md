@@ -20,12 +20,25 @@ These instructions apply to the entire repository.
 - Do not commit generated dependencies or build output such as `node_modules/`, `vendor/`, or `build/`.
 - Do not commit secrets, credentials, personal paths, machine names, or other local-only environment details.
 
-## Communication and reporting
+## Communication
 
-- Surface blocking issues, material assumption changes, and required scope changes.
-- Keep routine implementation communication concise.
-- At handoff, report work performed, changed areas, validation results, and open items.
-- Never report validation as successful unless it actually ran successfully.
+- Do not narrate routine file reads, searches, edits, or successful commands unless the information helps the user make a decision or understand an important finding.
+- Surface blocking issues, material changes in assumptions, required scope changes, and decisions that require user input.
+- Keep communication concise and focused on information relevant to the requested work.
+
+## Approval requests
+
+- Request approval before taking a destructive, unexpected, or decision-sensitive action that is not already clearly authorized and could materially affect the repository, environment, dependencies, or user data.
+- When approval is required, explain the action or issue, why a decision is needed, the expected effect or relevant options and tradeoffs, and the recommended choice. Keep simple, low-risk requests concise.
+- Do not take an alternative approach or broaden the requested scope while such a material decision remains unresolved.
+- Do not request additional approval for actions that are already clearly authorized by the user's request and applicable repository instructions.
+
+## End-of-turn reports
+
+- When repository work is performed, briefly report the work performed, changed files, validation results, and any open items.
+- Do not require a structured work report for simple questions, explanations, or other responses that do not perform repository work.
+- Never report validation as successful unless it actually ran successfully. If validation was not run or was intentionally left to the user, state that clearly.
+- When changes are pushed, include a compare URL using the repository state at the start of the work and the pushed SHA.
 
 ## Review
 
