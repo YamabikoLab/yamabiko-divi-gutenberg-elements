@@ -47,8 +47,7 @@ const connectedEditors = new WeakSet< TinyMceEditor >();
 const bookmarks = new WeakMap< TinyMceEditor, TinyMceBookmark >();
 const diviWindow = window as DiviWindow;
 
-const translate = ( text: string ): string =>
-	diviWindow.wp?.i18n?.__( text, TEXT_DOMAIN ) ?? text;
+const translate = ( text: string ): string => diviWindow.wp?.i18n?.__( text, TEXT_DOMAIN ) ?? text;
 
 const getColorLabel = ( color: HighlightColor ): string => {
 	switch ( color ) {
@@ -64,8 +63,7 @@ const getColorLabel = ( color: HighlightColor ): string => {
 	}
 };
 
-const formatName = ( color: HighlightColor ): string =>
-	`${ FORMAT_PREFIX }${ color }`;
+const formatName = ( color: HighlightColor ): string => `${ FORMAT_PREFIX }${ color }`;
 
 const registerFormats = ( editor: TinyMceEditor ): void => {
 	for ( const color of HIGHLIGHT_COLORS ) {
@@ -90,10 +88,7 @@ const removeHighlight = ( editor: TinyMceEditor ): void => {
 	}
 };
 
-const applyHighlight = (
-	editor: TinyMceEditor,
-	color: HighlightColor
-): void => {
+const applyHighlight = ( editor: TinyMceEditor, color: HighlightColor ): void => {
 	editor.undoManager.transact( () => {
 		restoreSelection( editor );
 		removeHighlight( editor );
@@ -108,10 +103,7 @@ const clearHighlight = ( editor: TinyMceEditor ): void => {
 	} );
 };
 
-const createMenu = (
-	editor: TinyMceEditor,
-	anchor: HTMLElement
-): HTMLDivElement => {
+const createMenu = ( editor: TinyMceEditor, anchor: HTMLElement ): HTMLDivElement => {
 	const menu = document.createElement( 'div' );
 	const rect = anchor.getBoundingClientRect();
 
@@ -165,10 +157,7 @@ const addToolbarControl = ( editor: TinyMceEditor ): void => {
 		'.tox-toolbar__primary, .mce-toolbar-grp'
 	);
 
-	if (
-		! toolbar ||
-		toolbar.querySelector( `[${ CONTROL_ATTRIBUTE }="button"]` )
-	) {
+	if ( ! toolbar || toolbar.querySelector( `[${ CONTROL_ATTRIBUTE }="button"]` ) ) {
 		return;
 	}
 

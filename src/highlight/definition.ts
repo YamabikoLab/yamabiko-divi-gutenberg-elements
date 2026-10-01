@@ -1,5 +1,4 @@
-export const HIGHLIGHT_BASE_CLASS =
-	'yamabiko-divi-gutenberg-elements-highlight';
+export const HIGHLIGHT_BASE_CLASS = 'yamabiko-divi-gutenberg-elements-highlight';
 
 export const HIGHLIGHT_COLORS = [
 	{ id: 'orange', label: 'Orange' },

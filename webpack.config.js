@@ -21,10 +21,6 @@ const createConfig = ( name, entry, outputPath ) => ( {
 } );
 
 module.exports = [
-	createConfig(
-		'gutenberg',
-		'./src/gutenberg/highlight.tsx',
-		'build/gutenberg'
-	),
+	createConfig( 'gutenberg', './src/gutenberg/highlight.tsx', 'build/gutenberg' ),
 	createConfig( 'divi', './src/divi/highlight.ts', 'build/divi' ),
 ];
