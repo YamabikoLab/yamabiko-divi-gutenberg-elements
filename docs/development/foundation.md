@@ -18,7 +18,25 @@ Gutenberg and Divi builds are independent build targets. Do not assume a single 
 
 ## Stable identifiers
 
-Use project identifiers based on `yamabiko-divi-gutenberg-elements`, including the WordPress text domain and future public handles. Treat saved content identifiers and other persisted identifiers as compatibility-sensitive once released.
+Use these identifiers consistently:
+
+| Surface | Form |
+| --- | --- |
+| Plugin slug and text domain | `yamabiko-divi-gutenberg-elements` |
+| PHP namespace | `YamabikoLab\DiviGutenbergElements\` |
+| Global PHP function prefix | `yamabiko_divi_gutenberg_elements_` |
+| PHP constant prefix | `YAMABIKO_DIVI_GUTENBERG_ELEMENTS_` |
+| Action and filter prefix | `yamabiko-divi-gutenberg-elements/` |
+| Script and style handle prefix | `yamabiko-divi-gutenberg-elements-` |
+| CSS class prefix | `yamabiko-divi-gutenberg-elements-` |
+
+Do not use short project acronyms such as `YE` or `YDGE` for public or persisted identifiers. Acronyms may be used in conversation and documentation prose.
+
+Project-owned CSS class names use the `yamabiko-divi-gutenberg-elements-` prefix, lowercase kebab-case within each segment, `__` for child elements, and `--` for modifiers. Use separate `is-` or `has-` classes for state. Do not rename classes owned by WordPress, Divi, or third-party dependencies.
+
+When a concrete feature introduces another public identifier surface, derive its form from the canonical plugin slug unless an external platform contract requires another form. Do not define identifiers for capabilities that do not yet exist merely for completeness.
+
+Released identifiers, saved markup, persisted keys, and public hooks are compatibility-sensitive contracts.
 
 ## WordPress lifecycle
 
