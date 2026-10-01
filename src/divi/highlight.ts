@@ -140,10 +140,8 @@ const createMenu = ( editor: TinyMceEditor, anchor: HTMLElement ): HTMLDivElemen
 	const clear = document.createElement( 'button' );
 	clear.type = 'button';
 	clear.textContent =
-		diviWindow.wp?.i18n?.__(
-			'Remove highlight',
-			'yamabiko-divi-gutenberg-elements'
-		) ?? 'Remove highlight';
+		diviWindow.wp?.i18n?.__( 'Remove highlight', 'yamabiko-divi-gutenberg-elements' ) ??
+		'Remove highlight';
 	clear.setAttribute( 'role', 'menuitem' );
 	clear.addEventListener( 'click', () => {
 		clearHighlight( editor );
@@ -166,10 +164,7 @@ const addToolbarControl = ( editor: TinyMceEditor ): void => {
 
 	const button = document.createElement( 'button' );
 	const label =
-		diviWindow.wp?.i18n?.__(
-			'Highlight',
-			'yamabiko-divi-gutenberg-elements'
-		) ?? 'Highlight';
+		diviWindow.wp?.i18n?.__( 'Highlight', 'yamabiko-divi-gutenberg-elements' ) ?? 'Highlight';
 
 	button.type = 'button';
 	button.textContent = label;
