@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<ruleset name="Yamabiko Divi Gutenberg Elements">
+	<description>WordPress Coding Standards for Yamabiko Divi Gutenberg Elements.</description>
+
+	<file>.</file>
+
+	<arg name="extensions" value="php"/>
+	<config name="minimum_wp_version" value="6.8"/>
+
+	<exclude-pattern>*/build/*</exclude-pattern>
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+
+	<rule ref="WordPress"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="yamabiko-divi-gutenberg-elements"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array">
+				<element value="yamabiko_divi_gutenberg_elements"/>
+				<element value="YamabikoLab"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="WordPress.Files.FileName">
+		<properties>
+			<property name="strict_class_file_names" value="false"/>
+		</properties>
+	</rule>
+</ruleset>
