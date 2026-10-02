@@ -75,8 +75,7 @@ type DiviWindow = Window & {
 };
 
 const CONTROL_ATTRIBUTE = 'data-yamabiko-divi-gutenberg-elements-highlight';
-const EDITOR_STYLE_ATTRIBUTE =
-	'data-yamabiko-divi-gutenberg-elements-highlight-style';
+const EDITOR_STYLE_ATTRIBUTE = 'data-yamabiko-divi-gutenberg-elements-highlight-style';
 const HIGHLIGHT_STYLE_ID = 'yamabiko-divi-gutenberg-elements-highlight-css';
 const FORMAT_PREFIX = 'yamabiko_divi_gutenberg_elements_highlight_';
 const connectedEditors = new WeakSet< TinyMceEditor >();
@@ -88,25 +87,18 @@ const getColorLabel = ( color: HighlightColor ): string => {
 
 	switch ( color ) {
 		case 'orange':
-			return (
-				__?.( 'Orange', 'yamabiko-divi-gutenberg-elements' ) ?? 'Orange'
-			);
+			return __?.( 'Orange', 'yamabiko-divi-gutenberg-elements' ) ?? 'Orange';
 		case 'green':
-			return (
-				__?.( 'Green', 'yamabiko-divi-gutenberg-elements' ) ?? 'Green'
-			);
+			return __?.( 'Green', 'yamabiko-divi-gutenberg-elements' ) ?? 'Green';
 		case 'blue':
 			return __?.( 'Blue', 'yamabiko-divi-gutenberg-elements' ) ?? 'Blue';
 		case 'yellow':
 		default:
-			return (
-				__?.( 'Yellow', 'yamabiko-divi-gutenberg-elements' ) ?? 'Yellow'
-			);
+			return __?.( 'Yellow', 'yamabiko-divi-gutenberg-elements' ) ?? 'Yellow';
 	}
 };
 
-const formatName = ( color: HighlightColor ): string =>
-	`${ FORMAT_PREFIX }${ color }`;
+const formatName = ( color: HighlightColor ): string => `${ FORMAT_PREFIX }${ color }`;
 
 const registerFormats = ( editor: TinyMceEditor ): void => {
 	for ( const color of HIGHLIGHT_COLORS ) {
@@ -150,17 +142,13 @@ const getEditedTextModuleId = (): string | undefined => {
 		return undefined;
 	}
 
-	const moduleId = data
-		.select( 'divi/modal-library' )
-		.getModalOwner?.( 'divi/module' );
+	const moduleId = data.select( 'divi/modal-library' ).getModalOwner?.( 'divi/module' );
 
 	if ( ! moduleId ) {
 		return undefined;
 	}
 
-	const moduleName = data
-		.select( 'divi/edit-post' )
-		.getModuleName?.( moduleId );
+	const moduleName = data.select( 'divi/edit-post' ).getModuleName?.( moduleId );
 
 	return moduleName === 'divi/text' ? moduleId : undefined;
 };
@@ -175,10 +163,9 @@ const syncDiviModuleContent = ( editor: TinyMceEditor ): void => {
 
 	const html = editor.getContent();
 	const selectors = data.select( 'divi/edit-post' );
-	const currentValue = selectors.getModuleAttr?.(
-		moduleId,
-		'content.innerContent'
-	) as ImmutableInnerContent | undefined;
+	const currentValue = selectors.getModuleAttr?.( moduleId, 'content.innerContent' ) as
+		| ImmutableInnerContent
+		| undefined;
 	const currentHtml = currentValue?.getIn?.( [ 'desktop', 'value' ] );
 
 	if ( currentHtml === html ) {
@@ -219,10 +206,7 @@ const removeHighlight = ( editor: TinyMceEditor ): void => {
 	}
 };
 
-const applyHighlight = (
-	editor: TinyMceEditor,
-	color: HighlightColor
-): void => {
+const applyHighlight = ( editor: TinyMceEditor, color: HighlightColor ): void => {
 	editor.undoManager.transact( () => {
 		restoreSelection( editor );
 		removeHighlight( editor );
@@ -241,10 +225,7 @@ const clearHighlight = ( editor: TinyMceEditor ): void => {
 	syncDiviModuleContent( editor );
 };
 
-const createMenu = (
-	editor: TinyMceEditor,
-	anchor: HTMLElement
-): HTMLDivElement => {
+const createMenu = ( editor: TinyMceEditor, anchor: HTMLElement ): HTMLDivElement => {
 	const menu = document.createElement( 'div' );
 	const rect = anchor.getBoundingClientRect();
 
@@ -282,10 +263,8 @@ const createMenu = (
 	const clear = document.createElement( 'button' );
 	clear.type = 'button';
 	clear.textContent =
-		diviWindow.wp?.i18n?.__(
-			'Remove highlight',
-			'yamabiko-divi-gutenberg-elements'
-		) ?? 'Remove highlight';
+		diviWindow.wp?.i18n?.__( 'Remove highlight', 'yamabiko-divi-gutenberg-elements' ) ??
+		'Remove highlight';
 	clear.setAttribute( 'role', 'menuitem' );
 	clear.addEventListener( 'click', () => {
 		clearHighlight( editor );
@@ -302,19 +281,13 @@ const addToolbarControl = ( editor: TinyMceEditor ): void => {
 		'.tox-toolbar__primary, .mce-toolbar-grp'
 	);
 
-	if (
-		! toolbar ||
-		toolbar.querySelector( `[${ CONTROL_ATTRIBUTE }="button"]` )
-	) {
+	if ( ! toolbar || toolbar.querySelector( `[${ CONTROL_ATTRIBUTE }="button"]` ) ) {
 		return;
 	}
 
 	const button = document.createElement( 'button' );
 	const label =
-		diviWindow.wp?.i18n?.__(
-			'Highlight',
-			'yamabiko-divi-gutenberg-elements'
-		) ?? 'Highlight';
+		diviWindow.wp?.i18n?.__( 'Highlight', 'yamabiko-divi-gutenberg-elements' ) ?? 'Highlight';
 
 	button.type = 'button';
 	button.textContent = label;
@@ -328,9 +301,7 @@ const addToolbarControl = ( editor: TinyMceEditor ): void => {
 
 	button.addEventListener( 'click', () => {
 		document
-			.querySelectorAll< HTMLElement >(
-				`[${ CONTROL_ATTRIBUTE }="menu"]`
-			)
+			.querySelectorAll< HTMLElement >( `[${ CONTROL_ATTRIBUTE }="menu"]` )
 			.forEach( ( menu ) => menu.remove() );
 		document.body.append( createMenu( editor, button ) );
 	} );
