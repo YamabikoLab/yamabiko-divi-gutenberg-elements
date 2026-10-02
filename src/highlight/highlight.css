@@ -1,0 +1,28 @@
+.yamabiko-divi-gutenberg-elements-highlight {
+	--yamabiko-divi-gutenberg-elements-highlight-color: rgb(255 234 0 / 55%);
+
+	background: linear-gradient(
+		to bottom,
+		transparent 48%,
+		var(--yamabiko-divi-gutenberg-elements-highlight-color) 48%,
+		var(--yamabiko-divi-gutenberg-elements-highlight-color) 88%,
+		transparent 88%
+	);
+	color: inherit;
+}
+
+.yamabiko-divi-gutenberg-elements-highlight--orange {
+	--yamabiko-divi-gutenberg-elements-highlight-color: rgb(255 159 67 / 55%);
+}
+
+.yamabiko-divi-gutenberg-elements-highlight--yellow {
+	--yamabiko-divi-gutenberg-elements-highlight-color: rgb(255 234 0 / 55%);
+}
+
+.yamabiko-divi-gutenberg-elements-highlight--green {
+	--yamabiko-divi-gutenberg-elements-highlight-color: rgb(46 204 113 / 48%);
+}
+
+.yamabiko-divi-gutenberg-elements-highlight--blue {
+	--yamabiko-divi-gutenberg-elements-highlight-color: rgb(84 160 255 / 48%);
+}

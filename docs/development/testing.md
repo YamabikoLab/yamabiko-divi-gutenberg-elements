@@ -10,6 +10,18 @@ Install locked dependencies:
 npm ci
 ```
 
+Build the Gutenberg and Divi Highlight assets:
+
+```bash
+npm run build
+```
+
+Run the TypeScript type check:
+
+```bash
+npm run typecheck
+```
+
 Run the current Node.js quality gate:
 
 ```bash
@@ -22,7 +34,10 @@ npm test
 npm run format:check
 npm run lint:js
 npm run lint:css
+npm run typecheck
 ```
+
+TypeScript and TSX product source are included in the existing `format` / `format:check` quality gate.
 
 Run the dependency security audit:
 
@@ -32,7 +47,7 @@ npm run audit:security
 
 `npm run format` and `npm run format:css` modify files and should be used only intentionally.
 
-YDGE does not yet have TypeScript product source, a production build, Jest tests, Knip, or Playwright E2E. Add those commands here only when the corresponding real source and configuration are introduced.
+YDGE does not yet have Jest tests, Knip, or Playwright E2E. Add those commands here only when the corresponding real source and configuration are introduced.
 
 ## PHP
 
@@ -85,7 +100,7 @@ git diff --check origin/main...HEAD
 ## Handoff matrix
 
 - Documentation only: repository check.
-- JavaScript/JSON/YAML/CSS/SCSS or Node configuration: `npm test` and repository check.
+- JavaScript/TypeScript/JSON/YAML/CSS/SCSS or Node configuration: `npm test`, `npm run build`, and repository check.
 - PHP or Composer changes: Composer validation, PHP syntax, PHPCS, PHPStan, and repository check.
 - Dependency manifest or lock-file changes: add the relevant security audit.
 - GitHub Actions changes: repository check and GitHub-hosted workflow result.
