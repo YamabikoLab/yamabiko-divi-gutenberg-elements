@@ -46,8 +46,7 @@ type DiviWindow = Window & {
 };
 
 const CONTROL_ATTRIBUTE = 'data-yamabiko-divi-gutenberg-elements-highlight';
-const EDITOR_STYLE_ATTRIBUTE =
-	'data-yamabiko-divi-gutenberg-elements-highlight-style';
+const EDITOR_STYLE_ATTRIBUTE = 'data-yamabiko-divi-gutenberg-elements-highlight-style';
 const HIGHLIGHT_STYLE_ID = 'yamabiko-divi-gutenberg-elements-highlight-css';
 const FORMAT_PREFIX = 'yamabiko_divi_gutenberg_elements_highlight_';
 const connectedEditors = new WeakSet< TinyMceEditor >();
