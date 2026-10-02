@@ -26,6 +26,7 @@ type TinyMceEditor = {
 		transact: ( callback: () => void ) => void;
 	};
 	dispatch?: ( event: string ) => void;
+	execCommand: ( command: string, ui?: boolean, value?: unknown ) => void;
 	fire?: ( event: string ) => void;
 	getContainer: () => HTMLElement;
 	getDoc?: () => Document;
@@ -133,7 +134,7 @@ const applyHighlight = ( editor: TinyMceEditor, color: HighlightColor ): void =>
 	editor.undoManager.transact( () => {
 		restoreSelection( editor );
 		removeHighlight( editor );
-		editor.formatter.apply( formatName( color ) );
+		editor.execCommand( 'mceToggleFormat', false, formatName( color ) );
 	} );
 
 	notifyEditorChange( editor );
