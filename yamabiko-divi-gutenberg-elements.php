@@ -61,14 +61,14 @@ add_action(
 	__NAMESPACE__ . '\\enqueue_gutenberg_highlight'
 );
 
-function is_divi_visual_builder_request(): bool {
-	$visual_builder = filter_input( INPUT_GET, 'et_fb', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-
-	return '1' === $visual_builder;
-}
-
 function enqueue_divi_highlight(): void {
-	if ( ! is_divi_visual_builder_request() ) {
+	if (
+		! function_exists( '\\et_builder_d5_enabled' ) ||
+		! function_exists( '\\et_core_is_fb_enabled' ) ||
+		! \\et_builder_d5_enabled() ||
+		! \\et_core_is_fb_enabled() ||
+		! class_exists( '\\ET\\Builder\\VisualBuilder\\Assets\\PackageBuildManager' )
+	) {
 		return;
 	}
 
@@ -78,17 +78,28 @@ function enqueue_divi_highlight(): void {
 		return;
 	}
 
-	wp_enqueue_script(
-		'yamabiko-divi-gutenberg-elements-divi-highlight',
-		plugins_url( 'build/divi/highlight.js', __FILE__ ),
-		array( 'wp-i18n' ),
-		(string) filemtime( $script_path ),
-		true
+	\\ET\\Builder\\VisualBuilder\\Assets\\PackageBuildManager::register_package_build(
+		array(
+			'name'    => 'yamabiko-divi-gutenberg-elements-highlight',
+			'version' => (string) filemtime( $script_path ),
+			'script'  => array(
+				'src'                => plugins_url( 'build/divi/highlight.js', __FILE__ ),
+				'deps'               => array( 'wp-i18n' ),
+				'enqueue_top_window' => false,
+				'enqueue_app_window' => true,
+				'args'               => array(
+					'in_footer' => true,
+				),
+			),
+		)
 	);
 
 	wp_set_script_translations(
-		'yamabiko-divi-gutenberg-elements-divi-highlight',
+		'yamabiko-divi-gutenberg-elements-highlight',
 		'yamabiko-divi-gutenberg-elements'
 	);
 }
-add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\enqueue_divi_highlight' );
+add_action(
+	'divi_visual_builder_assets_before_enqueue_scripts',
+	__NAMESPACE__ . '\\enqueue_divi_highlight'
+);
