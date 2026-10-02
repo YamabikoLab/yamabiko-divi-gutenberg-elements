@@ -25,8 +25,13 @@ type TinyMceEditor = {
 	undoManager: {
 		transact: ( callback: () => void ) => void;
 	};
+	dispatch?: ( event: string ) => void;
+	fire?: ( event: string ) => void;
 	getContainer: () => HTMLElement;
+	getDoc?: () => Document;
+	getElement?: () => HTMLElement | null;
 	on: ( event: string, callback: () => void ) => void;
+	save?: () => void;
 };
 
 type DiviWindow = Window & {
@@ -41,6 +46,9 @@ type DiviWindow = Window & {
 };
 
 const CONTROL_ATTRIBUTE = 'data-yamabiko-divi-gutenberg-elements-highlight';
+const EDITOR_STYLE_ATTRIBUTE =
+	'data-yamabiko-divi-gutenberg-elements-highlight-style';
+const HIGHLIGHT_STYLE_ID = 'yamabiko-divi-gutenberg-elements-highlight-css';
 const FORMAT_PREFIX = 'yamabiko_divi_gutenberg_elements_highlight_';
 const connectedEditors = new WeakSet< TinyMceEditor >();
 const bookmarks = new WeakMap< TinyMceEditor, TinyMceBookmark >();
@@ -73,11 +81,46 @@ const registerFormats = ( editor: TinyMceEditor ): void => {
 	}
 };
 
+const ensureEditorStyle = ( editor: TinyMceEditor ): void => {
+	const sourceStyle = document.getElementById( HIGHLIGHT_STYLE_ID );
+	const editorDocument = editor.getDoc?.();
+
+	if (
+		! ( sourceStyle instanceof HTMLLinkElement ) ||
+		! editorDocument?.head ||
+		editorDocument.head.querySelector( `[${ EDITOR_STYLE_ATTRIBUTE }]` )
+	) {
+		return;
+	}
+
+	const editorStyle = sourceStyle.cloneNode( true ) as HTMLLinkElement;
+	editorStyle.removeAttribute( 'id' );
+	editorStyle.setAttribute( EDITOR_STYLE_ATTRIBUTE, '' );
+	editorDocument.head.append( editorStyle );
+};
+
 const restoreSelection = ( editor: TinyMceEditor ): void => {
 	const bookmark = bookmarks.get( editor );
 
 	if ( bookmark !== undefined ) {
 		editor.selection.moveToBookmark( bookmark );
+	}
+};
+
+const notifyEditorChange = ( editor: TinyMceEditor ): void => {
+	if ( editor.dispatch ) {
+		editor.dispatch( 'change' );
+	} else {
+		editor.fire?.( 'change' );
+	}
+
+	editor.save?.();
+
+	const sourceElement = editor.getElement?.();
+
+	if ( sourceElement ) {
+		sourceElement.dispatchEvent( new Event( 'input', { bubbles: true } ) );
+		sourceElement.dispatchEvent( new Event( 'change', { bubbles: true } ) );
 	}
 };
 
@@ -93,6 +136,8 @@ const applyHighlight = ( editor: TinyMceEditor, color: HighlightColor ): void =>
 		removeHighlight( editor );
 		editor.formatter.apply( formatName( color ) );
 	} );
+
+	notifyEditorChange( editor );
 };
 
 const clearHighlight = ( editor: TinyMceEditor ): void => {
@@ -100,6 +145,8 @@ const clearHighlight = ( editor: TinyMceEditor ): void => {
 		restoreSelection( editor );
 		removeHighlight( editor );
 	} );
+
+	notifyEditorChange( editor );
 };
 
 const createMenu = ( editor: TinyMceEditor, anchor: HTMLElement ): HTMLDivElement => {
@@ -188,13 +235,18 @@ const addToolbarControl = ( editor: TinyMceEditor ): void => {
 
 const connectEditor = ( editor: TinyMceEditor ): void => {
 	if ( connectedEditors.has( editor ) ) {
+		ensureEditorStyle( editor );
 		addToolbarControl( editor );
 		return;
 	}
 
 	registerFormats( editor );
+	ensureEditorStyle( editor );
 	addToolbarControl( editor );
 	connectedEditors.add( editor );
+	editor.on( 'init', () => {
+		ensureEditorStyle( editor );
+	} );
 	editor.on( 'remove', () => {
 		bookmarks.delete( editor );
 	} );
