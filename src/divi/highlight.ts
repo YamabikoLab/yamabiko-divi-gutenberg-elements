@@ -55,9 +55,9 @@ type EditPostDispatch = {
 };
 
 type DiviData = {
-	select: ( store: 'divi/edit-post' ) => EditPostSelectors;
-	select: ( store: 'divi/modal-library' ) => ModalLibrarySelectors;
-	dispatch: ( store: 'divi/edit-post' ) => EditPostDispatch;
+	select( store: 'divi/edit-post' ): EditPostSelectors;
+	select( store: 'divi/modal-library' ): ModalLibrarySelectors;
+	dispatch( store: 'divi/edit-post' ): EditPostDispatch;
 };
 
 type DiviWindow = Window & {
